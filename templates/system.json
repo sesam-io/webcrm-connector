@@ -1,0 +1,16 @@
+{
+  "_id": "{{@ system @}}",
+  "headers": {
+    "Authorization": "bearer $SECRET(api_key)"
+  },
+  "operations": {
+    "persons-list": {
+      "id_expression": "{{ PersonId }}",
+      "method": "GET",
+      "url": "Persons"
+    }
+  },
+  "type": "system:rest",
+  "url_pattern": "https://api.webcrm.com/%s",
+  "verify_ssl": true
+}

@@ -1,0 +1,10 @@
+{
+  "additional_parameters": {},
+  "auth": "api_key",
+  "datatypes": {
+    "persons": {
+      "template": "templates/persons.json"
+    }
+  },
+  "system-template": "templates/system.json"
+}
