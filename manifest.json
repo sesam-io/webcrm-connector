@@ -1,6 +1,7 @@
 {
   "additional_parameters": {},
-  "auth": "jwt",
+  "auth": "api_key",
+  "auth_variant": "jwt",
   "jwt":{
     "login_url":"https://api.webcrm.com/auth/apilogin"
   },
