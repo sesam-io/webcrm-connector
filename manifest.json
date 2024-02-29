@@ -1,6 +1,9 @@
 {
   "additional_parameters": {},
-  "auth": "api_key",
+  "auth": "jwt",
+  "jwt":{
+    "login_url":"https://api.webcrm.com/auth/apilogin"
+  },
   "datatypes": {
     "persons": {
       "template": "templates/persons.json"
