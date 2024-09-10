@@ -3,11 +3,27 @@
   "headers": {
     "Authorization": "bearer $SECRET(jwt_access_token)"
   },
+  "json_content_types": [
+    "text/json",
+    "text/xml"
+  ],
   "operations": {
-    "persons-list": {
+    "person-insert": {
+      "headers": {
+        "Content-Type": "application/json-patch+json",
+        "accept": "text/json"
+      },
+      "method": "POST",
+      "url": "Persons"
+    },
+    "person-list": {
       "id_expression": "{{ PersonId }}",
       "method": "GET",
       "url": "Persons"
+    },
+    "person-lookup": {
+      "method": "GET",
+      "url": "Persons/{{ entity.PersonId }}"
     }
   },
   "type": "system:rest",

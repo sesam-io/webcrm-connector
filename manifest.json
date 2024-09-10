@@ -2,13 +2,14 @@
   "additional_parameters": {},
   "auth": "api_key",
   "auth_variant": "jwt",
-  "jwt":{
-    "login_url":"https://api.webcrm.com/auth/apilogin"
-  },
   "datatypes": {
-    "persons": {
-      "template": "templates/persons.json"
+    "person": {
+      "template": "templates/person.json"
     }
+  },
+  "jwt": {
+    "jwt_header_key": "authCode",
+    "login_url": "https://api.webcrm.com/auth/apilogin"
   },
   "system-template": "templates/system.json"
 }
