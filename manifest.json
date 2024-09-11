@@ -9,7 +9,8 @@
   },
   "jwt": {
     "jwt_header_key": "authCode",
-    "login_url": "https://api.webcrm.com/auth/apilogin"
+    "login_url": "https://api.webcrm.com/auth/apilogin",
+    "refresh_url": "https://api.webcrm.com/auth/ApiRefresh"
   },
   "system-template": "templates/system.json"
 }
