@@ -10,10 +10,12 @@
   "operations": {
     "person-insert": {
       "headers": {
-        "Content-Type": "application/json-patch+json",
-        "accept": "text/json"
+        "Content-Type": "application/json",
+        "accept": "application/json",
+        "payload-type": "text"
       },
       "method": "POST",
+      "parse_response_as": "json",
       "url": "Persons"
     },
     "person-list": {
@@ -24,6 +26,16 @@
     "person-lookup": {
       "method": "GET",
       "url": "Persons/{{ entity.PersonId }}"
+    },
+    "person-update": {
+      "headers": {
+        "Content-Type": "application/json",
+        "accept": "application/json",
+        "payload-type": "text"
+      },
+      "method": "PATCH",
+      "parse_response_as": "json",
+      "url": "Persons"
     }
   },
   "type": "system:rest",
