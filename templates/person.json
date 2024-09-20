@@ -1,0 +1,149 @@
+[
+  {
+    "_id": "{{@ system @}}-{{@ datatype @}}-collect",
+    "namespaced_identifiers": false,
+    "source": {
+      "operation": "{{@ datatype @}}-list",
+      "system": "{{@ system @}}",
+      "trace": true,
+      "type": "rest"
+    },
+    "type": "pipe"
+  },
+  {
+    "_id": "{{@ system @}}-{{@ datatype @}}-share",
+    "batch_size": 1,
+    "namespaced_identifiers": false,
+    "sink": {
+      "deletion_tracking": false,
+      "set_initial_offset": "onload"
+    },
+    "source": {
+      "dataset": "{{@ system @}}-{{@ datatype @}}-transform",
+      "type": "dataset"
+    },
+    "transform": [
+      {
+        "rules": {
+          "default": [
+            [
+              "copy",
+              "*",
+              [
+                "list",
+                "_*",
+                "$*"
+              ]
+            ],
+            [
+              "copy",
+              "*"
+            ]
+          ]
+        },
+        "type": "dtl"
+      },
+      {
+        "properties": {
+          "operation_delete": "{{@ datatype @}}-delete",
+          "operation_insert": "{{@ datatype @}}-insert",
+          "operation_lookup": "{{@ datatype @}}-lookup",
+          "operation_update": "{{@ datatype @}}-update",
+          "primary_key": "PersonId",
+          "rest_system": "{{@ system @}}",
+          "rewrite_rules_mutation": {
+            "rewrite_insert": [
+              [
+                "add",
+                "response_body",
+                [
+                  "dict",
+                  "PersonId",
+                  "_S.response_body"
+                ]
+              ]
+            ],
+            "rewrite_update": [
+              [
+                "add",
+                "response_body",
+                [
+                  "dict",
+                  "PersonId",
+                  "_S.response_body"
+                ]
+              ]
+            ]
+          },
+          "rewrite_rules_payload": {
+            "remove_internal_props": [
+              [
+                "copy",
+                "*",
+                [
+                  "list",
+                  "_*",
+                  "$*"
+                ]
+              ]
+            ],
+            "rewrite_insert_payload": [
+              [
+                "add",
+                "$payload",
+                [
+                  "dict",
+                  "PersonEmail",
+                  "_S.PersonEmail",
+                  "PersonFirstName",
+                  "_S.PersonFirstName",
+                  "PersonLastName",
+                  "_S.PersonLastName",
+                  "PersonOrganisationId",
+                  "_S.PersonOrganisationId",
+                  "PersonId",
+                  0
+                ]
+              ]
+            ],
+            "rewrite_rules_lookup": [
+              [
+                "add",
+                "$payload",
+                [
+                  "dict",
+                  "PersonEmail",
+                  "_S.PersonEmail",
+                  "PersonFirstName",
+                  "_S.PersonFirstName",
+                  "PersonLastName",
+                  "_S.PersonLastName",
+                  "PersonOrganisationId",
+                  "_S.PersonOrganisationId"
+                ]
+              ]
+            ],
+            "rewrite_update_payload": [
+              [
+                "add",
+                "$payload",
+                [
+                  "list",
+                  [
+                    "apply",
+                    "remove_internal_props",
+                    "_S.$source"
+                  ]
+                ]
+              ]
+            ]
+          },
+          "share_dataset": "{{@ system @}}-{{@ datatype @}}-share"
+        },
+        "template": "transform-share-rest",
+        "type": "template"
+      }
+    ],
+    "type": "pipe"
+  }
+]
