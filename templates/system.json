@@ -21,7 +21,7 @@
     "person-list": {
       "id_expression": "{{ PersonId }}",
       "method": "GET",
-      "url": "Persons"
+      "url": "Persons?size=1&page=1"
     },
     "person-lookup": {
       "method": "GET",
@@ -36,6 +36,93 @@
       "method": "PATCH",
       "parse_response_as": "json",
       "url": "Persons"
+    },
+    "product-insert": {
+      "headers": {
+        "Content-Type": "application/json",
+        "accept": "application/json",
+        "payload-type": "text"
+      },
+      "method": "POST",
+      "parse_response_as": "json",
+      "url": "Products"
+    },
+    "product-list": {
+      "id_expression": "{{ ProductId }}",
+      "method": "GET",
+      "url": "Products"
+    },
+    "product-lookup": {
+      "method": "GET",
+      "url": "Products/{{ entity.ProductId }}"
+    },
+    "product-update": {
+      "headers": {
+        "Content-Type": "application/json",
+        "accept": "application/json",
+        "payload-type": "text"
+      },
+      "method": "PATCH",
+      "parse_response_as": "json",
+      "url": "Products"
+    },
+    "quotationline-insert": {
+      "headers": {
+        "Content-Type": "application/json",
+        "accept": "application/json",
+        "payload-type": "text"
+      },
+      "method": "POST",
+      "parse_response_as": "json",
+      "url": "QuotationLines"
+    },
+    "quotationline-list": {
+      "id_expression": "{{ QuotationLineId }}",
+      "method": "GET",
+      "url": "QuotationLines"
+    },
+    "quotationline-lookup": {
+      "method": "GET",
+      "url": "QuotationLines/{{ entity.QuotationLineId }}"
+    },
+    "quotationline-update": {
+      "headers": {
+        "Content-Type": "application/json",
+        "accept": "application/json",
+        "payload-type": "text"
+      },
+      "method": "PATCH",
+      "parse_response_as": "json",
+      "url": "QuotationLines"
+    },
+    "user-insert": {
+      "headers": {
+        "Content-Type": "application/json",
+        "accept": "application/json",
+        "payload-type": "text"
+      },
+      "method": "POST",
+      "parse_response_as": "json",
+      "url": "Users"
+    },
+    "user-list": {
+      "id_expression": "{{ UserId }}",
+      "method": "GET",
+      "url": "Users"
+    },
+    "user-lookup": {
+      "method": "GET",
+      "url": "Users/{{ entity.UserId }}"
+    },
+    "user-update": {
+      "headers": {
+        "Content-Type": "application/json",
+        "accept": "application/json",
+        "payload-type": "text"
+      },
+      "method": "PATCH",
+      "parse_response_as": "json",
+      "url": "Users"
     }
   },
   "type": "system:rest",

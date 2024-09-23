@@ -5,6 +5,12 @@
   "datatypes": {
     "person": {
       "template": "templates/person.json"
+    },
+    "product": {
+      "template": "templates/product.json"
+    },
+    "quotationline": {
+      "template": "templates/quotationline.json"
     }
   },
   "jwt": {
