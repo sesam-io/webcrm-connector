@@ -3,13 +3,34 @@
   "auth": "api_key",
   "auth_variant": "jwt",
   "datatypes": {
+    "delivery": {
+      "parameters": {
+        "id_name": "DeliveryId"
+      },
+      "template": "templates/delivery.json"
+    },
+    "opportunity": {
+      "parameters": {
+        "id_name": "OpportunityId"
+      },
+      "template": "templates/opportunity.json"
+    },
     "person": {
+      "parameters": {
+        "id_name": "PersonId"
+      },
       "template": "templates/person.json"
     },
     "product": {
+      "parameters": {
+        "id_name": "ProductId"
+      },
       "template": "templates/product.json"
     },
     "quotationline": {
+      "parameters": {
+        "id_name": "QuotationLineId"
+      },
       "template": "templates/quotationline.json"
     }
   },
