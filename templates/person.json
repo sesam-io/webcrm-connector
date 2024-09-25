@@ -1,13 +1,59 @@
 [
   {
+    "_id": "{{@ system @}}-{{@ datatype @}}-all",
+    "namespaced_identifiers": false,
+    "pump": {
+      "cron_expression": "0 0 * * ?"
+    },
+    "source": {
+      "initial_since_value": "1970-09-23T09:28:14+01:00",
+      "operation": "{{@ datatype @}}query-list",
+      "since_property_location": "manual",
+      "supports_since": true,
+      "system": "{{@ system @}}",
+      "trace": true,
+      "type": "rest",
+      "updated_expression": "{{ PersonUpdatedAt }}"
+    },
+    "type": "pipe"
+  },
+  {
     "_id": "{{@ system @}}-{{@ datatype @}}-collect",
     "namespaced_identifiers": false,
     "source": {
-      "operation": "{{@ datatype @}}-list",
-      "system": "{{@ system @}}",
-      "trace": true,
-      "type": "rest"
+      "dataset": "{{@ system @}}-{{@ datatype @}}-all",
+      "type": "dataset"
     },
+    "transform": [
+      {
+        "properties": {
+          "primary_key": "id",
+          "share_dataset": "{{@ system @}}-{{@ datatype @}}-share"
+        },
+        "template": "transform-collect-rest",
+        "type": "template"
+      },
+      {
+        "rules": {
+          "default": [
+            [
+              "copy",
+              "*"
+            ],
+            [
+              "add",
+              "$last-modified",
+              [
+                "datetime-parse",
+                "%Y-%m-%dT%H:%M:%S%z",
+                "_S.PersonUpdatedAt"
+              ]
+            ]
+          ]
+        },
+        "type": "dtl"
+      }
+    ],
     "type": "pipe"
   },
   {
@@ -49,7 +95,7 @@
           "operation_insert": "{{@ datatype @}}-insert",
           "operation_lookup": "{{@ datatype @}}-lookup",
           "operation_update": "{{@ datatype @}}-update",
-          "primary_key": "PersonId",
+          "primary_key": "{{@ id_name @}}",
           "rest_system": "{{@ system @}}",
           "rewrite_rules_mutation": {
             "rewrite_insert": [
@@ -58,7 +104,7 @@
                 "response_body",
                 [
                   "dict",
-                  "PersonId",
+                  "{{@ id_name @}}",
                   "_S.response_body"
                 ]
               ]
@@ -69,7 +115,7 @@
                 "response_body",
                 [
                   "dict",
-                  "PersonId",
+                  "{{@ id_name @}}",
                   "_S.response_body"
                 ]
               ]
@@ -101,7 +147,7 @@
                   "_S.PersonLastName",
                   "PersonOrganisationId",
                   "_S.PersonOrganisationId",
-                  "PersonId",
+                  "{{@ id_name @}}",
                   0
                 ]
               ]
