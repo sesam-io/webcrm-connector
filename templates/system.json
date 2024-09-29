@@ -3,27 +3,204 @@
   "headers": {
     "Authorization": "bearer $SECRET(jwt_access_token)"
   },
-  "json_content_types": [
-    "text/json",
-    "text/xml"
-  ],
   "operations": {
-    "person-insert": {
+    "delivery-insert": {
       "headers": {
-        "Content-Type": "application/json-patch+json",
-        "accept": "text/json"
+        "Content-Type": "application/json",
+        "accept": "application/json"
       },
       "method": "POST",
-      "url": "Persons"
+      "parse_response_as": "json",
+      "url": "Deliveries"
     },
-    "person-list": {
-      "id_expression": "{{ PersonId }}",
+    "delivery-lookup": {
       "method": "GET",
+      "url": "Deliveries/{{ entity.DeliveryId }}"
+    },
+    "delivery-update": {
+      "headers": {
+        "Content-Type": "application/json",
+        "accept": "application/json"
+      },
+      "method": "PATCH",
+      "parse_response_as": "json",
+      "url": "Deliveries"
+    },
+    "deliveryquery-list": {
+      "id_expression": "{{ DeliveryId }}",
+      "method": "GET",
+      "next_page_link": "Queries",
+      "next_page_termination_strategy": [
+        "empty-result"
+      ],
+      "params": {
+        "Page": "{% if previous_params.Page is not defined %}1{% else %}{{ previous_params.Page|int+1|int }}{% endif %}",
+        "Script": "SELECT* FROM Delivery WHERE DeliveryUpdatedAt >= '{{ since }}'",
+        "Size": 50
+      },
+      "url": "Queries"
+    },
+    "opportunity-insert": {
+      "headers": {
+        "Content-Type": "application/json",
+        "accept": "application/json"
+      },
+      "method": "POST",
+      "parse_response_as": "json",
+      "url": "Opportunities"
+    },
+    "opportunity-lookup": {
+      "method": "GET",
+      "url": "Opportunities/{{ entity.OpportunityId }}"
+    },
+    "opportunity-update": {
+      "headers": {
+        "Content-Type": "application/json",
+        "accept": "application/json"
+      },
+      "method": "PATCH",
+      "parse_response_as": "json",
+      "url": "Opportunities"
+    },
+    "opportunityquery-list": {
+      "id_expression": "{{ OpportunityId }}",
+      "method": "GET",
+      "next_page_link": "Queries",
+      "next_page_termination_strategy": [
+        "empty-result"
+      ],
+      "params": {
+        "Page": "{% if previous_params.Page is not defined %}1{% else %}{{ previous_params.Page|int+1|int }}{% endif %}",
+        "Script": "SELECT* FROM Opportunity WHERE OpportunityUpdatedAt >= '{{ since }}'",
+        "Size": 50
+      },
+      "url": "Queries"
+    },
+    "person-insert": {
+      "headers": {
+        "Content-Type": "application/json",
+        "accept": "application/json"
+      },
+      "method": "POST",
+      "parse_response_as": "json",
       "url": "Persons"
     },
     "person-lookup": {
       "method": "GET",
       "url": "Persons/{{ entity.PersonId }}"
+    },
+    "person-update": {
+      "headers": {
+        "Content-Type": "application/json",
+        "accept": "application/json",
+        "payload-type": "text"
+      },
+      "method": "PATCH",
+      "parse_response_as": "json",
+      "url": "Persons"
+    },
+    "personquery-list": {
+      "id_expression": "{{ PersonId }}",
+      "method": "GET",
+      "next_page_link": "Queries",
+      "next_page_termination_strategy": [
+        "empty-result"
+      ],
+      "params": {
+        "Page": "{% if previous_params.Page is not defined %}1{% else %}{{ previous_params.Page|int+1|int }}{% endif %}",
+        "Script": "SELECT* FROM Person WHERE PersonUpdatedAt >= '{{ since }}'",
+        "Size": 50
+      },
+      "url": "Queries"
+    },
+    "product-insert": {
+      "headers": {
+        "Content-Type": "application/json",
+        "accept": "application/json",
+        "payload-type": "text"
+      },
+      "method": "POST",
+      "parse_response_as": "json",
+      "url": "Products"
+    },
+    "product-lookup": {
+      "method": "GET",
+      "url": "Products/{{ entity.ProductId }}"
+    },
+    "product-update": {
+      "headers": {
+        "Content-Type": "application/json",
+        "accept": "application/json",
+        "payload-type": "text"
+      },
+      "method": "PATCH",
+      "parse_response_as": "json",
+      "url": "Products"
+    },
+    "productquery-list": {
+      "id_expression": "{{ ProductId }}",
+      "method": "GET",
+      "next_page_link": "Queries",
+      "next_page_termination_strategy": [
+        "empty-result"
+      ],
+      "params": {
+        "Page": "{% if previous_params.Page is not defined %}1{% else %}{{ previous_params.Page|int+1|int }}{% endif %}",
+        "Script": "SELECT* FROM Product WHERE ProductUpdatedAt >= '{{ since }}'",
+        "Size": 50
+      },
+      "url": "Queries"
+    },
+    "quotationline-insert": {
+      "headers": {
+        "Content-Type": "application/json",
+        "accept": "application/json",
+        "payload-type": "text"
+      },
+      "method": "POST",
+      "parse_response_as": "json",
+      "url": "QuotationLines"
+    },
+    "quotationline-list": {
+      "id_expression": "{{ QuotationLineId }}",
+      "method": "GET",
+      "next_page_link": "QuotationLines",
+      "next_page_termination_strategy": [
+        "empty-result"
+      ],
+      "params": {
+        "Page": "{% if previous_params.Page is not defined %}1{% else %}{{ previous_params.Page|int+1|int }}{% endif %}",
+        "Size": 1
+      },
+      "url": "QuotationLines"
+    },
+    "quotationline-lookup": {
+      "method": "GET",
+      "url": "QuotationLines/{{ entity.QuotationLineId }}"
+    },
+    "quotationline-update": {
+      "headers": {
+        "Content-Type": "application/json",
+        "accept": "application/json",
+        "payload-type": "text"
+      },
+      "method": "PATCH",
+      "parse_response_as": "json",
+      "url": "QuotationLines"
+    },
+    "quotationlinequery-list": {
+      "id_expression": "{{ QuotationLineId }}",
+      "method": "GET",
+      "next_page_link": "Queries",
+      "next_page_termination_strategy": [
+        "empty-result"
+      ],
+      "params": {
+        "Page": "{% if previous_params.Page is not defined %}1{% else %}{{ previous_params.Page|int+1|int }}{% endif %}",
+        "Script": "SELECT* FROM QuotationLine WHERE QuotationLineUpdatedAt >= '{{ since }}'",
+        "Size": 50
+      },
+      "url": "Queries"
     }
   },
   "type": "system:rest",
